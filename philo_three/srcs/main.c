@@ -6,11 +6,11 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 13:34:29 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/08 13:36:13 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/08 14:08:05 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo_three.h"
 
 int main(int ac, char **av)
 {
