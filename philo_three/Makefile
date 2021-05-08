@@ -6,13 +6,11 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/08 14:03:37 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/08 14:07:04 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_one
-
-# NAME_BONUS = 
 
 FLAGS = -Wall -Wextra -Werror
 
