@@ -6,11 +6,11 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/07 15:57:33 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/08 14:03:29 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo_two.a
+NAME = philo_one
 
 # NAME_BONUS = 
 
@@ -33,8 +33,6 @@ HDR_NAME =
 OBJ_PATH= objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
-LIBFT_PATH = ./libft
-
 OBJ= $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 HDR= $(addprefix $(HDR_PATH)/,$(HDR_NAME))
@@ -42,47 +40,35 @@ HDR= $(addprefix $(HDR_PATH)/,$(HDR_NAME))
 all: $(NAME) 
 
 $(NAME): $(OBJ)
-
+	@echo "\033[1;93m"
+	@echo "			THE PHILOSOPHERS"
+	@echo "\033[0m"
+	@echo "				Philo_two"
 	@gcc $(FLAGS) $(OBJ) -o $(NAME)
 	@echo "\033[0;33m"
-	@echo "			COMPILATION DONE!\n"
+	@echo "				Compilation: Done!"
 	@echo "\033[0m"
-	@echo "						Created by:"
 	@echo "\033[1;30m"
-	@echo "						  asaadi  < asaadi@student.1337.ma >\n"
+	@echo "			asaadi  <asaadi@student.1337.ma> <https://github.com/a-saadi>"
 	@echo "\033[0m"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@gcc $(FLAGS) $(HDR_INC)  -o $@ -c $<
 
-
-
-# bonus: $(NAME_BONUS)
-
-# $(NAME_BONUS): $(OBJ)
-# 	@make -sC $(LIBFT_PATH)
-# 	@cp libft/libft.a .
-# 	@gcc $(FLAGS) libft.a $(OBJ) -o $(NAME_BONUS)
-# 	@echo "\033[0;33m"
-# 	@echo "			COMPILATION DONE!\n"
-# 	@echo "\033[0m"
-# 	@echo "						Created by:"
-# 	@echo "\033[1;30m"
-# 	@echo "						  abdel-mak && asaadi\n"
-# 	@echo "\033[0m"
-
 clean:
 	@rm -rf $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
-	@make clean -sC $(LIBFT_PATH)
+	@echo "\033[1;91m"
 	@echo "minishell : Removing Objs"
+	@echo "\033[0m"
+
 
 fclean: clean
 	@rm -rf $(NAME)
-	@rm -rf $(NAME_BONUS)
-	@rm -rf libft.a
-	@make fclean -sC $(LIBFT_PATH)
+	@echo "\033[1;91m"
 	@echo "minishell : Removing minishell"
+	@echo "\033[0m"
+
 
 re: fclean all
