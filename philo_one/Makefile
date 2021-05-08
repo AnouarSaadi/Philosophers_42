@@ -33,6 +33,11 @@ HDR_NAME =
 OBJ_PATH= objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
+<<<<<<< HEAD
+=======
+# LIBFT_PATH = ./libft
+
+>>>>>>> 32e39d0bac808c1169eb6c3177902fa9f5d16dc1
 OBJ= $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 HDR= $(addprefix $(HDR_PATH)/,$(HDR_NAME))
