@@ -58,14 +58,14 @@ clean:
 	@rm -rf $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 	@echo "\033[1;91m"
-	@echo "minishell : Removing Objs"
+	@echo "				minishell : Removing Objs"
 	@echo "\033[0m"
 
 
 fclean: clean
 	@rm -rf $(NAME)
 	@echo "\033[1;91m"
-	@echo "minishell : Removing minishell"
+	@echo "				minishell : Removing minishell"
 	@echo "\033[0m"
 
 
