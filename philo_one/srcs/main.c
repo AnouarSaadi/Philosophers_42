@@ -20,19 +20,7 @@ void    ft_putstr_fd(char *s, int fd)
     while (*s)
         write(fd, s++, 1);
     write(1, "\n", 1);
-}
-
-// void   *print_msg(void *arg)
-// {
-//     int philo;
-
-//     philo = *(int *)arg;
-//     pthread_mutex_lock(&mutex);
-//     printf("Philo %d\n", philo);
-//     pthread_mutex_unlock(&mutex);
-//     free(arg);
-//     return (arg);
-// }
+}1
 
 unsigned int get_time(void)
 {
