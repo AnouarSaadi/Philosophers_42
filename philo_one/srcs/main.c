@@ -20,7 +20,7 @@ void    ft_putstr_fd(char *s, int fd)
     while (*s)
         write(fd, s++, 1);
     write(1, "\n", 1);
-}1
+}
 
 unsigned int get_time(void)
 {
