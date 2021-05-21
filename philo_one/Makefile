@@ -6,7 +6,7 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/20 12:18:01 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/21 16:20:06 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,9 @@ FLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs
 
 SRC_NAME = 	main.c \
-			ft_atoi.c
-
-
-
-
-
+			parser.c \
+			ft_atoi.c \
+			clearing_data.c
 
 
 HDR_PATH = headers/

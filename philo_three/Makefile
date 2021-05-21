@@ -6,7 +6,7 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/08 14:11:21 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/20 12:19:09 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ FLAGS = -Wall -Wextra -Werror
 
 SRC_PATH = srcs
 
-SRC_NAME = 	main.c
+SRC_NAME = 	main.c \
+			ft_atoi.c
 
 
 
@@ -26,7 +27,7 @@ SRC_NAME = 	main.c
 
 HDR_PATH = headers/
 HDR_INC = -I ./headers
-HDR_NAME = 
+HDR_NAME = philo_three.h
 
 OBJ_PATH= objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -41,10 +42,9 @@ $(NAME): $(OBJ)
 	@echo "\033[1;93m"
 	@echo "		THE PHILOSOPHERS"
 	@echo "\033[0m"
-	@echo "				Philo_three"
 	@gcc $(FLAGS) $(OBJ) -o $(NAME)
 	@echo "\033[0;33m"
-	@echo "				Compilation: Done!"
+	@echo "				Philo_three: Compilation: Done!"
 	@echo "\033[0m"
 	@echo "\033[1;30m"
 	@echo "				asaadi  <asaadi@student.1337.ma> <https://github.com/a-saadi>"
@@ -52,20 +52,26 @@ $(NAME): $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@gcc $(FLAGS) $(HDR_INC)  -o $@ -c $<
+	@gcc $(FLAGS) -pthread $(HDR_INC)  -o $@ -c $<
 
 clean:
 	@rm -rf $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	@echo "\033[1;93m"
+	@echo "		THE PHILOSOPHERS"
+	@echo "\033[0m"
 	@echo "\033[1;91m"
-	@echo "minishell : Removing Objs"
+	@echo "				Philo_three: Removing Objs"
 	@echo "\033[0m"
 
 
 fclean: clean
 	@rm -rf $(NAME)
+	@echo "\033[1;93m"
+	@echo "		THE PHILOSOPHERS"
+	@echo "\033[0m"
 	@echo "\033[1;91m"
-	@echo "minishell : Removing minishell"
+	@echo "				Philo_three: Removing minishell"
 	@echo "\033[0m"
 
 

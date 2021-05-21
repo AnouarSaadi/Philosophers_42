@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 13:37:28 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/20 17:31:42 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/21 19:20:19 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 
 typedef struct s_data t_data;
 
-
 typedef struct s_philo
 {
     unsigned int limit;
     int index;
-    int lf;
-    int rf;
-    char alive;
+    int l_fork;
+    int r_fork;
+    char is_alive;
     int eating_times;
     t_data *data;
+    pthread_mutex_t protect_die_eat_ph_mutex;
 }               t_philo;
 
 
@@ -51,5 +51,8 @@ struct  s_data
 };
 
 int ft_atoi(const char *str);
+int parser_args(t_data *data, char **av);
+void    ft_free_pointer(void **array);
+void	ft_clear_data(t_data *data);
 
 #endif
