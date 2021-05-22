@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 18:36:34 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/19 15:53:30 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/22 15:57:39 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_long(long res, int sign)
 	return (res);
 }
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	long		res;
 	int			sign;
@@ -32,8 +32,8 @@ int			ft_atoi(const char *str)
 	res = 0;
 	sign = 1;
 	i = 0;
-	while ((str[i] == '\t' || str[i] == '\n' || str[i] == '\v' ||
-				str[i] == '\f' || str[i] == '\r' || str[i] == ' ') && str[i])
+	while ((str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ') && str[i])
 		i++;
 	if ((str[i] == '-' || str[i] == '+') && str[i])
 	{

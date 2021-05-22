@@ -6,7 +6,7 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/21 16:20:06 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/22 14:30:37 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ SRC_PATH = srcs
 SRC_NAME = 	main.c \
 			parser.c \
 			ft_atoi.c \
+			philo_struct_init.c \
+			create_detach_threads.c \
+			routines.c \
 			clearing_data.c
 
 
