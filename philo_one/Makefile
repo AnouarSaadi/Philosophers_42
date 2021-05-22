@@ -44,7 +44,7 @@ $(NAME): $(OBJ)
 	@echo "\033[0m"
 	@gcc $(FLAGS) $(OBJ) -o $(NAME)
 	@echo "\033[0;33m"
-	@echo "				Philo_one: Compilation: Done!"
+	@echo "				Philo_one: Compilation: Done"
 	@echo "\033[0m"
 	@echo "\033[1;30m"
 	@echo "				asaadi  <asaadi@student.1337.ma> <https://github.com/a-saadi>"
