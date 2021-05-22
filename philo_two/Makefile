@@ -6,7 +6,7 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/20 12:18:59 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/22 16:10:50 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,12 @@ FLAGS = -Wall -Wextra -Werror
 SRC_PATH = srcs
 
 SRC_NAME = 	main.c \
-			ft_atoi.c
-
-
-
-
-
+			parser.c \
+			ft_atoi.c \
+			philo_struct_init.c \
+			create_detach_threads.c \
+			routines.c \
+			clearing_data.c
 
 
 HDR_PATH = headers/
@@ -44,7 +44,7 @@ $(NAME): $(OBJ)
 	@echo "\033[0m"
 	@gcc $(FLAGS) $(OBJ) -o $(NAME)
 	@echo "\033[0;33m"
-	@echo "				Philo_two: Compilation: Done!"
+	@echo "				Philo_two: Compilation: Done"
 	@echo "\033[0m"
 	@echo "\033[1;30m"
 	@echo "				asaadi  <asaadi@student.1337.ma> <https://github.com/a-saadi>"
