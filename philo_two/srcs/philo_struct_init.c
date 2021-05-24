@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:22:52 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/22 16:12:17 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/24 15:51:16 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	*eating_checker(void *arg)
 	data = (t_data *)arg;
 	while (data->decrement_eat)
 		usleep(100);
-	pthread_mutex_lock(&data->output_mutex);
-	pthread_mutex_unlock(&data->main_mutex);
+	sem_wait(data->output_sem);
+	sem_post(data->main_sem);
 	return (arg);
 }
 
@@ -32,14 +32,14 @@ int	ph_struct__init(t_data *data)
 	while (++index < data->number_of_philosophers)
 	{
 		data->ph[index].index = index;
-		data->ph[index].l_fork = index;
-		data->ph[index].r_fork = (index + 1) % data->number_of_philosophers;
 		data->ph[index].is_alive = 1;
-		data->ph[index].data = data;
 		data->ph[index].eating_times = 0;
-		pthread_mutex_init(&data->ph[index].protect_die_eat_ph_mutex, NULL);
-		pthread_mutex_init(&data->forks[index], NULL);
+		data->ph[index].data = data;
+		sem_unlink("/protect_ph");
+		data->ph[index].protect_die_eat_ph_sem = sem_open("/protect_ph", O_CREAT, S_IWUSR | S_IRUSR, 1);
 	}
+	sem_unlink("/forks");
+	data->forks = sem_open("/forks", O_CREAT, S_IWUSR | S_IRUSR, data->number_of_philosophers);
 	data->decrement_eat = data->number_of_philosophers;
 	if (data->number_of_times_each_philosopher_must_eat != -1)
 	{

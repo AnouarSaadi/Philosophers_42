@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:29:16 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/22 16:12:00 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/24 16:44:53 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	check_args(t_data *data)
 {
-	if (data->number_of_philosophers < 2 || data->number_of_philosophers > 200
-		|| data->time_to_eat < 60
-		|| data->time_to_die < 60
-		|| data->time_to_sleep < 60)
+	if (data->time_to_eat <= 0
+		|| data->time_to_die <= 0
+		|| data->time_to_sleep <= 0)
 		return (0);
 	return (1);
 }
@@ -38,8 +37,6 @@ int	parser_args(t_data *data, char **av)
 		data->number_of_times_each_philosopher_must_eat = -1;
 	if (!check_args(data))
 		return (0);
-	data->forks = malloc(sizeof(pthread_mutex_t)
-			* data->number_of_philosophers);
 	data->ph = malloc(sizeof(t_philo) * data->number_of_philosophers);
 	return (1);
 }

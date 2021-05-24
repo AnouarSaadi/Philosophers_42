@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:24:17 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/22 16:11:45 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/24 16:44:26 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	creat_detach_threads(t_data *data)
 
 	index = -1;
 	data->start = get_time();
-	pthread_mutex_init(&data->output_mutex, NULL);
+	sem_unlink("/output");
+	data->output_sem = sem_open("/output", O_CREAT, S_IRUSR | S_IWUSR, 1);
 	while (++index < data->number_of_philosophers)
 	{
 		if (pthread_create(&data->th, NULL, routine,

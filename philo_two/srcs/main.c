@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 13:34:29 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/22 16:11:07 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/24 16:44:32 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@ int	main(int ac, char **av)
 		return (ft_put_err_fd("Philo_two: invalid arguments",
 				2, 0, NULL));
 	}
-	pthread_mutex_init(&data->main_mutex, NULL);
-	pthread_mutex_lock(&data->main_mutex);
+	sem_unlink("/main");
+	data->main_sem = sem_open("/main", O_CREAT, S_IRUSR | S_IWUSR, 0);
+	// sem_wait(data->main_sem);
 	if (!ph_struct__init(data))
 		return (-1);
 	if (!creat_detach_threads(data))
 		return (-1);
-	pthread_mutex_lock(&data->main_mutex);
-	pthread_mutex_unlock(&data->main_mutex);
+	sem_wait(data->main_sem);
+	sem_post(data->main_sem);
 	ft_clear_data(data);
 	return (0);
 }

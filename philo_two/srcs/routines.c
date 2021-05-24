@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:16:56 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/22 16:12:30 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/24 16:01:27 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void	*check_life(void *arg)
 	data = ph->data;
 	while (ph->is_alive)
 	{
-		pthread_mutex_lock(&ph->protect_die_eat_ph_mutex);
+		sem_wait(ph->protect_die_eat_ph_sem);
 		if (get_time() > ph->limit)
 		{
 			ph->is_alive = 0;
-			pthread_mutex_lock(&data->output_mutex);
-			printf("%u\t%d died\n", get_time() - data->start, ph->index + 1);
-			pthread_mutex_unlock(&data->main_mutex);
+			sem_wait(data->output_sem);
+			printf("%u\t%d\tdied\n", get_time() - data->start, ph->index + 1);
+			sem_post(data->main_sem);
 		}
-		pthread_mutex_unlock(&ph->protect_die_eat_ph_mutex);
+		sem_post(ph->protect_die_eat_ph_sem);
 		usleep(100);
 	}
 	return (arg);
@@ -45,24 +45,24 @@ void	*check_life(void *arg)
 
 void	output_print(t_data *data, t_philo *ph, char *str_to_print)
 {
-	pthread_mutex_lock(&data->output_mutex);
-	printf("%u\t%d %s\n", get_time() - data->start, ph->index + 1, str_to_print);
-	pthread_mutex_unlock(&data->output_mutex);
+	sem_wait(data->output_sem);
+	printf("%u\t%d\t%s\n", get_time() - data->start, ph->index + 1, str_to_print);
+	sem_post(data->output_sem);
 }
 
 int	peer_routine(t_data *data, t_philo *ph)
 {
-	pthread_mutex_lock(&data->forks[ph->l_fork]);
+	sem_wait(data->forks);
 	output_print(data, ph, "has taken a fork");
-	pthread_mutex_lock(&data->forks[ph->r_fork]);
+	sem_wait(data->forks);
 	output_print(data, ph, "has taken a fork");
-	pthread_mutex_lock(&ph->protect_die_eat_ph_mutex);
+	sem_wait(ph->protect_die_eat_ph_sem);
 	ph->limit = get_time() + data->time_to_die;
 	output_print(data, ph, "is eating");
 	usleep(data->time_to_eat * 1000);
-	pthread_mutex_unlock(&ph->protect_die_eat_ph_mutex);
-	pthread_mutex_unlock(&data->forks[ph->l_fork]);
-	pthread_mutex_unlock(&data->forks[ph->r_fork]);
+	sem_post(ph->protect_die_eat_ph_sem);
+	sem_post(data->forks);
+	sem_post(data->forks);
 	if (++ph->eating_times == data->number_of_times_each_philosopher_must_eat)
 	{
 		data->decrement_eat--;
@@ -84,9 +84,9 @@ void	*routine(void *arg)
 	data = ph->data;
 	ph->limit = get_time() + data->time_to_die;
 	if (pthread_create(&th, NULL, check_life, (void *)ph) != 0)
-		pthread_mutex_unlock(&data->main_mutex);
+		sem_post(data->main_sem);
 	if (pthread_detach(th) != 0)
-		pthread_mutex_unlock(&data->main_mutex);
+		sem_post(data->main_sem);
 	while (ph->is_alive)
 	{
 		if (!peer_routine(data, ph))

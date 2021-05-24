@@ -6,7 +6,7 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/22 14:30:37 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/22 17:05:53 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@gcc $(FLAGS) -pthread $(HDR_INC)  -o $@ -c $<
+	@gcc $(FLAGS) $(HDR_INC)  -o $@ -c $<
 
 clean:
 	@rm -rf $(OBJ)

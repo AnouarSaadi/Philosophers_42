@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 13:37:28 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/22 16:10:15 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/24 16:05:24 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@
 # include <stdio.h>
 # include <sys/time.h>
 # include <pthread.h>
-
+# include <semaphore.h>
+# include <fcntl.h>
+# include <string.h>
+# include <errno.h>
 typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
 	unsigned int	limit;
 	int				index;
-	int				l_fork;
-	int				r_fork;
 	char			is_alive;
 	int				eating_times;
 	t_data			*data;
-	pthread_mutex_t	protect_die_eat_ph_mutex;
+	sem_t			*protect_die_eat_ph_sem;
 }	t_philo;
 
 struct	s_data
@@ -43,10 +44,10 @@ struct	s_data
 	int				number_of_times_each_philosopher_must_eat;
 	int				decrement_eat;
 	unsigned int	start;
-	pthread_mutex_t	*forks;
+	sem_t			*forks;
 	t_philo			*ph;
-	pthread_mutex_t	main_mutex;
-	pthread_mutex_t	output_mutex;
+	sem_t			*main_sem;
+	sem_t			*output_sem;
 };
 
 int				ft_atoi(const char *str);
