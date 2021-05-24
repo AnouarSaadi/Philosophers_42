@@ -52,7 +52,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@gcc $(FLAGS) -pthread $(HDR_INC)  -o $@ -c $<
+	@gcc $(FLAGS) $(HDR_INC)  -o $@ -c $<
 
 clean:
 	@rm -rf $(OBJ)
