@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_three.h                                      :+:      :+:    :+:   */
+/*   clearing_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/08 14:08:35 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/08 14:08:37 by asaadi           ###   ########.fr       */
+/*   Created: 2021/05/21 16:10:02 by asaadi            #+#    #+#             */
+/*   Updated: 2021/05/24 16:01:11 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_THREE_H
-# define PHILO_THREE_H
+#include "philo_two.h"
 
-#include <stdlib.h>
-#include <stdio.h>
+void	ft_free_pointer(void **ptr)
+{
+	free(*ptr);
+	*ptr = NULL;
+}
 
-#endif
+void	ft_clear_data(t_data *data)
+{
+	int	index;
+
+	index = -1;
+	while (++index < data->number_of_philosophers)
+		sem_unlink("/protect_ph");
+	sem_unlink("/fork");
+	ft_free_pointer((void **)&data->ph);
+	sem_unlink("/main");
+	sem_unlink("/output");
+	ft_free_pointer((void **)&data);
+}
