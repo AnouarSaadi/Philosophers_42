@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:16:56 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/24 16:01:27 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/25 16:58:04 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void	*check_life(void *arg)
 	data = ph->data;
 	while (ph->is_alive)
 	{
-		sem_wait(ph->protect_die_eat_ph_sem);
+		if (sem_wait(ph->protect_die_eat_ph_sem) != 0)
+			return (NULL);
 		if (get_time() > ph->limit)
 		{
 			ph->is_alive = 0;
-			sem_wait(data->output_sem);
+			if (sem_wait(data->output_sem) != 0)
+				return (NULL);
 			printf("%u\t%d\tdied\n", get_time() - data->start, ph->index + 1);
 			sem_post(data->main_sem);
 		}
@@ -43,23 +45,27 @@ void	*check_life(void *arg)
 	return (arg);
 }
 
-void	output_print(t_data *data, t_philo *ph, char *str_to_print)
+void	output_print(t_data *data, t_philo *ph, char *str_to_print, int ms)
 {
-	sem_wait(data->output_sem);
+	if (sem_wait(data->output_sem) != 0)
+		return ;
 	printf("%u\t%d\t%s\n", get_time() - data->start, ph->index + 1, str_to_print);
 	sem_post(data->output_sem);
+	usleep(ms * 1000);
 }
 
 int	peer_routine(t_data *data, t_philo *ph)
 {
-	sem_wait(data->forks);
-	output_print(data, ph, "has taken a fork");
-	sem_wait(data->forks);
-	output_print(data, ph, "has taken a fork");
-	sem_wait(ph->protect_die_eat_ph_sem);
+	if (sem_wait(data->forks) != 0)
+		return (0);
+	output_print(data, ph, "has taken a fork", 0);
+	if (sem_wait(data->forks) != 0)
+		return (0);
+	output_print(data, ph, "has taken a fork", 0);
+	if (sem_wait(ph->protect_die_eat_ph_sem) != 0)
+		return (0);
 	ph->limit = get_time() + data->time_to_die;
-	output_print(data, ph, "is eating");
-	usleep(data->time_to_eat * 1000);
+	output_print(data, ph, "is eating", data->time_to_eat);
 	sem_post(ph->protect_die_eat_ph_sem);
 	sem_post(data->forks);
 	sem_post(data->forks);
@@ -68,9 +74,8 @@ int	peer_routine(t_data *data, t_philo *ph)
 		data->decrement_eat--;
 		return (0);
 	}
-	output_print(data, ph, "is sleeping");
-	usleep(data->time_to_sleep * 1000);
-	output_print(data, ph, "is thinking");
+	output_print(data, ph, "is sleeping", data->time_to_sleep);
+	output_print(data, ph, "is thinking", 0);
 	return (1);
 }
 
