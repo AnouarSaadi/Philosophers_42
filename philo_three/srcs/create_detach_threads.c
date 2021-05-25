@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 int	ft_put_err_fd(char *s, int fd, int ret, t_data *data)
 {
