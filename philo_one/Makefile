@@ -6,7 +6,7 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/22 17:05:53 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/28 16:19:41 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,9 @@ $(NAME): $(OBJ)
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@gcc $(FLAGS) $(HDR_INC)  -o $@ -c $<
+	@echo "\033[0;93m"
+	@echo "$<"
+	@echo "\033[0m"
 
 clean:
 	@rm -rf $(OBJ)

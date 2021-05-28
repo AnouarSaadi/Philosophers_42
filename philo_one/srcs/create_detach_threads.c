@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:24:17 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/23 11:28:01 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/26 12:11:24 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	creat_detach_threads(t_data *data)
 	int	index;
 
 	index = -1;
-	data->start = get_time();
+	data->start = get_current_time();
 	pthread_mutex_init(&data->output_mutex, NULL);
 	while (++index < data->number_of_philosophers)
 	{

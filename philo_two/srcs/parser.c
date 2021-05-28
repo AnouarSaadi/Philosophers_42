@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:29:16 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/24 16:44:53 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/28 16:06:09 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int	parser_args(t_data *data, char **av)
 		data->number_of_times_each_philosopher_must_eat = -1;
 	if (!check_args(data))
 		return (0);
-	data->ph = malloc(sizeof(t_philo) * data->number_of_philosophers);
+	data->ph = malloc(sizeof(t_philo) * data->number_of_philosophers + 1);
 	return (1);
 }

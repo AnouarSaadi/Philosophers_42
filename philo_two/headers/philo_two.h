@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 13:37:28 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/25 17:06:19 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/28 16:20:15 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			ft_free_pointer(void **array);
 void			ft_clear_data(t_data *data);
 int				ft_put_err_fd(char *s, int fd, int ret, t_data *data);
 int				fail_check(char *str_to_put, t_data *data);
-unsigned int	get_time(void);
+unsigned int	get_current_time(void);
 void			*check_life(void *arg);
 void			*routine(void *arg);
 int				ph_struct__init(t_data *data);

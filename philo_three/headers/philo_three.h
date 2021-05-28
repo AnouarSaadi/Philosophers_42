@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_two.h                                        :+:      :+:    :+:   */
+/*   philo_three.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/08 13:37:28 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/25 17:06:19 by asaadi           ###   ########.fr       */
+/*   Created: 2021/05/25 18:40:35 by asaadi            #+#    #+#             */
+/*   Updated: 2021/05/28 16:35:33 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <errno.h>
+# include <signal.h>
+
 typedef struct s_data	t_data;
 
 typedef struct s_philo
@@ -29,7 +31,6 @@ typedef struct s_philo
 	unsigned int	limit;
 	int				index;
 	char			is_alive;
-	int				eating_times;
 	t_data			*data;
 	sem_t			*protect_die_eat_ph_sem;
 }	t_philo;
@@ -42,12 +43,14 @@ struct	s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
-	int				decrement_eat;
 	unsigned int	start;
 	sem_t			*forks;
 	t_philo			*ph;
+	pid_t			*pid;
 	sem_t			*main_sem;
 	sem_t			*output_sem;
+	sem_t			*meals_sem;
+	int				meals_counter;
 };
 
 int				ft_atoi(const char *str);
@@ -56,11 +59,11 @@ void			ft_free_pointer(void **array);
 void			ft_clear_data(t_data *data);
 int				ft_put_err_fd(char *s, int fd, int ret, t_data *data);
 int				fail_check(char *str_to_put, t_data *data);
-unsigned int	get_time(void);
+unsigned int	get_current_time(void);
 void			*check_life(void *arg);
-void			*routine(void *arg);
+void			routine(t_philo *ph);
 int				ph_struct__init(t_data *data);
-int				creat_detach_threads(t_data *data);
+int				creat__processes(t_data *data);
 sem_t			*semaphore_open(char *name, int init_value);
 
 #endif

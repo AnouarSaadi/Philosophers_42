@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:24:17 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/25 17:08:10 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/26 12:11:24 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	creat_detach_threads(t_data *data)
 	int	index;
 
 	index = -1;
-	data->start = get_time();
+	data->start = get_current_time();
 	data->output_sem = semaphore_open("/output", 1);
 	if (data->output_sem == SEM_FAILED)
 		return (0);

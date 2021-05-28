@@ -6,7 +6,7 @@
 #    By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/07 12:43:35 by asaadi            #+#    #+#              #
-#    Updated: 2021/05/22 16:10:50 by asaadi           ###   ########.fr        #
+#    Updated: 2021/05/28 16:36:15 by asaadi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,9 @@ SRC_NAME = 	main.c \
 			parser.c \
 			ft_atoi.c \
 			philo_struct_init.c \
-			create_detach_threads.c \
+			create__processes.c \
 			routines.c \
 			clearing_data.c
-
 
 HDR_PATH = headers/
 HDR_INC = -I ./headers
@@ -53,6 +52,9 @@ $(NAME): $(OBJ)
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@gcc $(FLAGS) $(HDR_INC)  -o $@ -c $<
+	@echo "\033[0;93m"
+	@echo "$<"
+	@echo "\033[0m"
 
 clean:
 	@rm -rf $(OBJ)
