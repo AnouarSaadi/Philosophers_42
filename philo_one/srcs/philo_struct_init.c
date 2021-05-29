@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:22:52 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/22 15:46:55 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/28 19:20:58 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*eating_checker(void *arg)
 	while (data->decrement_eat)
 		usleep(100);
 	pthread_mutex_lock(&data->output_mutex);
+	printf("Philo_one: each philo has eaten %d times\n",
+		data->number_of_times_each_philosopher_must_eat);
 	pthread_mutex_unlock(&data->main_mutex);
 	return (arg);
 }

@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:16:56 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/26 15:41:09 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/29 11:03:32 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*check_life(void *arg)
 
 	ph = (t_philo *)arg;
 	data = ph->data;
-	while (ph->is_alive)
+	while (ph && ph->is_alive)
 	{
 		if (sem_wait(ph->protect_die_eat_ph_sem) != 0)
 			return (NULL);
@@ -74,6 +74,7 @@ int	peer_routine(t_data *data, t_philo *ph)
 	if (++ph->eating_times == data->number_of_times_each_philosopher_must_eat)
 	{
 		data->decrement_eat--;
+		ph->is_alive = 0;
 		return (0);
 	}
 	output_print(data, ph, "is sleeping", data->time_to_sleep);
@@ -94,7 +95,7 @@ void	*routine(void *arg)
 		sem_post(data->main_sem);
 	if (pthread_detach(th) != 0)
 		sem_post(data->main_sem);
-	while (ph->is_alive)
+	while (ph && ph->is_alive)
 	{
 		if (!peer_routine(data, ph))
 			break ;

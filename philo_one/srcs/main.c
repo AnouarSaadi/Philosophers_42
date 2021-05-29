@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 13:34:29 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/27 14:06:29 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/29 14:50:22 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 	if (!data)
 		return (ft_put_err_fd("Philo_one: failed to allocate memory",
 				2, -1, NULL));
-	if (!parser_args(data, av))
+	if (!parser_args(data, av, ac))
 	{
 		ft_free_pointer((void **)&data);
 		return (ft_put_err_fd("Philo_one: invalid arguments",

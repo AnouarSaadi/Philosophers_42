@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:16:56 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/28 15:25:51 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/29 17:10:32 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,41 @@ void	*check_life(void *arg)
 			pthread_mutex_unlock(&data->main_mutex);
 		}
 		pthread_mutex_unlock(&ph->protect_die_eat_ph_mutex);
-		usleep(1000);
+		usleep(500);
 	}
 	return (arg);
 }
 
-void	output_print(t_data *data, t_philo *ph, char *str_to_print)
-{
-	if (pthread_mutex_lock(&data->output_mutex) < 0)
-		return ;
-	printf("%u\t%d %s\n", get_current_time() - data->start,
-		ph->index + 1, str_to_print);
-	pthread_mutex_unlock(&data->output_mutex);
-}
+// void	output_print(t_data *data, t_philo *ph, char *str_to_print)
+// {
+// 	if (pthread_mutex_lock(&data->output_mutex) < 0)
+// 		return ;
+// 	printf("%u\t%d %s\n", get_current_time() - data->start,
+// 		ph->index + 1, str_to_print);
+// 	pthread_mutex_unlock(&data->output_mutex);
+// }
 
 int	peer_routine(t_data *data, t_philo *ph)
 {
 	pthread_mutex_lock(&data->forks[ph->l_fork]);
-	output_print(data, ph, "has taken a fork");
+	// output_print(data, ph, "has taken a fork");
+	pthread_mutex_lock(&data->output_mutex);
+	printf("%u\t%d has taken a fork\n", get_current_time() - data->start, ph->index + 1);
+	pthread_mutex_unlock(&data->output_mutex);
+
 	pthread_mutex_lock(&data->forks[ph->r_fork]);
-	output_print(data, ph, "has taken a fork");
+	// output_print(data, ph, "has taken a fork");
+	pthread_mutex_lock(&data->output_mutex);
+	printf("%u\t%d has taken a fork\n", get_current_time() - data->start, ph->index + 1);
+	pthread_mutex_unlock(&data->output_mutex);
+
 	pthread_mutex_lock(&ph->protect_die_eat_ph_mutex);
 	ph->limit = get_current_time() + data->time_to_die;
-	output_print(data, ph, "is eating");
+	// output_print(data, ph, "is eating");
+	pthread_mutex_lock(&data->output_mutex);
+	printf("%u\t%d is eating\n", get_current_time() - data->start, ph->index + 1);
+	pthread_mutex_unlock(&data->output_mutex);
+
 	usleep(data->time_to_eat * 1000);
 	pthread_mutex_unlock(&ph->protect_die_eat_ph_mutex);
 	pthread_mutex_unlock(&data->forks[ph->l_fork]);
@@ -69,11 +81,9 @@ int	peer_routine(t_data *data, t_philo *ph)
 	if (++ph->eating_times == data->number_of_times_each_philosopher_must_eat)
 	{
 		data->decrement_eat--;
+		ph->is_alive = 0;
 		return (0);
 	}
-	output_print(data, ph, "is sleeping");
-	usleep(data->time_to_sleep * 1000);
-	output_print(data, ph, "is thinking");
 	return (1);
 }
 
@@ -94,6 +104,15 @@ void	*routine(void *arg)
 	{
 		if (!peer_routine(data, ph))
 			break ;
+	// output_print(data, ph, "is sleeping");
+	pthread_mutex_lock(&data->output_mutex);
+	printf("%u\t%d is sleeping\n", get_current_time() - data->start, ph->index + 1);
+	pthread_mutex_unlock(&data->output_mutex);
+	usleep(data->time_to_sleep * 1000);
+	// output_print(data, ph, "is thinking");
+	pthread_mutex_lock(&data->output_mutex);
+	printf("%u\t%d is thinking\n", get_current_time() - data->start, ph->index + 1);
+	pthread_mutex_unlock(&data->output_mutex);
 	}
 	return (arg);
 }

@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 13:37:28 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/26 12:11:24 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/29 14:50:07 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ struct	s_data
 };
 
 int				ft_atoi(const char *str);
-int				parser_args(t_data *data, char **av);
+int				parser_args(t_data *data, char **av, int ac);
 void			ft_free_pointer(void **array);
 void			ft_clear_data(t_data *data);
 int				ft_put_err_fd(char *s, int fd, int ret, t_data *data);

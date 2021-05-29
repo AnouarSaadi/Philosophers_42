@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:22:52 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/28 17:26:59 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/28 19:21:41 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	*check_eating_of_ph(void *arg)
 	i = -1;
 	while (++i < data->number_of_philosophers)
 		sem_wait(data->meals_sem);
+	sem_wait(data->output_sem);
+	printf("Philo_three: each philo has eaten %d times\n",
+		data->number_of_times_each_philosopher_must_eat);
 	sem_post(data->main_sem);
 	return (arg);
 }

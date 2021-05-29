@@ -6,7 +6,7 @@
 /*   By: asaadi <asaadi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 14:16:56 by asaadi            #+#    #+#             */
-/*   Updated: 2021/05/28 17:29:02 by asaadi           ###   ########.fr       */
+/*   Updated: 2021/05/29 15:25:35 by asaadi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*check_life(void *arg)
 			sem_post(data->main_sem);
 		}
 		sem_post(ph->protect_die_eat_ph_sem);
-		usleep(100);
+		usleep(500);
 	}
 	return (arg);
 }
